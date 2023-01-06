@@ -1,0 +1,6 @@
+void addFirst(int value){
+node temp=new Node();
+temp->val=value;
+temp->next=head;
+head=temp;
+}
