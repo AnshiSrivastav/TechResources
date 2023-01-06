@@ -1,0 +1,305 @@
+Insertion of a node in linked list
+
+class Node
+{
+    public:
+    int data;
+    Node *next;
+};
+
+Insertion at a given index
+void insertPos(Node** current, int pos, int data)
+{
+        if (pos < 1 || pos > size + 1)
+        cout << "Invalid position!" << endl;
+    else {
+
+        while (pos--) {
+ 
+            if (pos == 0) {
+ 
+                Node* temp = getNode(data);
+ 
+                temp->next = *current;
+                 *current = temp;
+            }
+            else
+             
+              current = &(*current)->next;
+        }
+        size++;
+    }
+}
+
+
+Remove the last row of linked list
+
+Node* removeLastNode(struct Node* head)
+{
+    if (head == NULL)
+        return NULL;
+ 
+    if (head->next == NULL) {
+        delete head;
+        return NULL;
+    }
+ 
+    Node* second_last = head;
+    while (second_last->next->next != NULL)
+        second_last = second_last->next;
+ 
+    delete (second_last->next);
+ 
+    second_last->next = NULL;
+ 
+    return head;
+}
+ 
+// Function to push node at head
+void push(struct Node** head_ref, int new_data)
+{
+    struct Node* new_node = new Node;
+    new_node->data = new_data;
+    new_node->next = (*head_ref);
+    (*head_ref) = new_node;
+}
+
+Reverse a linked list
+
+void reverse()
+    {
+        Node* current = head;
+        Node *prev = NULL, *next = NULL;
+ 
+        while (current != NULL) {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+    }
+
+To find the Nth node from the end of linked list
+
+void printNthFromLast(struct Node* head, int N)
+{
+    int len = 0, i;
+    struct Node* temp = head;
+ 
+    while (temp != NULL) {
+        temp = temp->next;
+        len++;
+    }
+ 
+      if (len < N)
+        return;
+ 
+    temp = head;
+ 
+    for (i = 1; i < len - N + 1; i++)
+        temp = temp->next;
+ 
+    cout << temp->data;
+ 
+    return;
+}
+ 
+void push(struct Node** head_ref, int new_data)
+{
+    struct Node* new_node = new Node();
+ 
+    new_node->data = new_data;
+ 
+    new_node->next = (*head_ref);
+ 
+    (*head_ref) = new_node;
+}
+
+To find the middle of linked list
+//finding length
+int getLen(class Node* head)
+    {
+        int len = 0;
+        class Node* temp = head;
+        while (temp) {
+            len++;
+            temp = temp->next;
+        }
+        return len;
+    }
+ 
+    void printMiddle(class Node* head)
+    {
+ 
+        if (head) {
+            int len = getLen(head);
+            class Node* temp = head;
+ 
+            int midIdx = len / 2;
+            while (midIdx--) {
+                temp = temp->next;
+            }
+            // temp will be storing middle element
+            cout << "The middle element is [" << temp << "]" << endl;
+        }
+    }
+};
+
+Merge two sorted linked list
+
+void MoveNode(Node** destRef, Node** sourceRef)
+{
+    Node* newNode = *sourceRef;
+    assert(newNode != NULL);
+ 
+    *sourceRef = newNode->next;
+ 
+    newNode->next = *destRef;
+ 
+    *destRef = newNode;
+}
+
+Merge sort on linked list
+
+
+Node* SortedMerge(Node* a, Node* b)
+{
+    Node* result = NULL;
+    if (a == NULL)
+        return (b);
+    else if (b == NULL)
+        return (a);
+ 
+    if (a->data <= b->data) {
+        result = a;
+        result->next = SortedMerge(a->next, b);
+    }
+    else {
+        result = b;
+        result->next = SortedMerge(a, b->next);
+    }
+    return (result);
+}
+
+K reverse a linked list
+
+Node* reverse(Node* head, int k)
+{
+    if (!head)
+        return NULL;
+    Node* current = head;
+    Node* next = NULL;
+    Node* prev = NULL;
+    int count = 0;
+ 
+    //reverse first k nodes of the linked list 
+    while (current != NULL && count < k) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+        count++;
+    }
+ 
+    // next is now a pointer to (k+1)th node
+    Recursively call for the list starting from current.
+    And make rest of the list as next of first node 
+    if (next != NULL)
+        head->next = reverse(next, k);
+ 
+    // prev is new head of the input list 
+    return prev;
+}
+
+To check whether a ll is palindrome or not
+
+bool isPalin(Node* head)
+{
+ 
+    Node* slow = head;
+ 
+    stack<int> s;
+ 
+      while (slow != NULL) {
+        s.push(slow->data);
+ 
+        slow = slow->ptr;
+    }
+ 
+       while (head != NULL) {
+ 
+        int i = s.top();
+ 
+        s.pop();
+ 
+        
+        if (head->data != i) {
+            return false;
+        }
+ 
+        head = head->ptr;
+    }
+ 
+    return true;
+}
+
+Add two ll
+
+Node* addTwoLists(Node* first, Node* second)
+{
+    Node* res = NULL;
+    Node *temp, *prev = NULL;
+    int carry = 0, sum;
+ 
+    while (first != NULL || second != NULL) {
+         
+        sum = carry + (first ? first->data : 0) + (second ? second->data : 0);
+        carry = (sum >= 10) ? 1 : 0;
+        sum = sum % 10;
+        temp = newNode(sum);
+        if (res == NULL)
+            res = temp;
+        else
+            prev->next = temp;
+       
+        prev = temp;
+ 
+        if (first)
+            first = first->next;
+        if (second)
+            second = second->next;
+    }
+    if (carry > 0)
+        temp->next = newNode(carry);
+    return res;
+}
+ 
+Node* reverse(Node* head)
+{
+    if (head == NULL || head->next == NULL)
+        return head;
+    Node* rest = reverse(head->next);
+    head->next->next = head;
+    head->next = NULL;
+    return rest;
+}
+
+
+To find intersection point of two ll
+
+Node* getIntesectionNode(Node* head1, Node* head2)
+{
+    while (head2) {
+        Node* temp = head1;
+        while (temp) {
+            if (temp == head2)
+                return head2;
+            temp = temp->next;
+        }
+        head2 = head2->next;
+    }
+    // intersection is not present between the lists
+    return NULL;
+} 
+
